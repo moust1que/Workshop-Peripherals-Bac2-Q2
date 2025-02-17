@@ -1,0 +1,34 @@
+{
+    "name": "ArbaleteControls",
+    "maps": [
+        {
+            "name": "Arbalette",
+            "id": "b3e21f1c-dad9-4a4f-bab8-432f63412c96",
+            "actions": [
+                {
+                    "name": "inputFire",
+                    "type": "Button",
+                    "id": "28114443-1b7a-4b61-b9c7-9ba3e115571a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c463100e-f358-42fd-a010-29e6054440a6",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "inputFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
