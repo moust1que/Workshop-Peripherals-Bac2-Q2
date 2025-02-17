@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1260818765552733011}
   - component: {fileID: 8261980978395259204}
   m_Layer: 0
-  m_Name: Fleche
+  m_Name: carreau
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -7,6 +7,8 @@ public class Arbalete : MonoBehaviour
     public Transform spawnPoint;             
     public InputActionReference inputFire; 
 
+    public CameraController cameraController;
+
     private void OnEnable()
     {
         inputFire.action.started += OnFireStarted;
@@ -48,5 +50,6 @@ public class Arbalete : MonoBehaviour
         {
             projScript.InitialiserDirection(spawnPoint.forward);
         }
+        cameraController.ExitAimMode();
     }
 }
