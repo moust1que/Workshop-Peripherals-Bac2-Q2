@@ -5,8 +5,7 @@ public class Arbalete : MonoBehaviour
 {
     public GameObject projectile;          
     public Transform spawnPoint;             
-    public InputActionReference inputFire;
-    // public float projectileSpeed = 10f;       
+    public InputActionReference inputFire; 
 
     private void OnEnable()
     {
@@ -31,6 +30,9 @@ public class Arbalete : MonoBehaviour
         {
             Fire();
         }
+        if(Input.GetKeyDown(KeyCode.JoystickButton0)){
+            Fire();
+        }
     }
 
     void Fire()
@@ -45,7 +47,6 @@ public class Arbalete : MonoBehaviour
         if (projScript != null)
         {
             projScript.InitialiserDirection(spawnPoint.forward);
-            // projScript.speed = projectileSpeed;
         }
     }
 }
