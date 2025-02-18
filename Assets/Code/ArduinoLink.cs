@@ -8,6 +8,22 @@ public class ArduinoLink : MonoBehaviour {
 
     private SerialPort serialPort;
 
+    public static ArduinoLink instance;
+
+    public float gyroX, gyroY, gyroZ;
+    public float joyX, joyY;
+    public bool button1, button2, button3, joyButton;
+
+
+    void Awake() {
+        if (instance == null) {
+            instance = this;
+            DontDestroyOnLoad(gameObject);  // Garde la connexion entre les scènes
+        } else {
+            Destroy(gameObject);
+        }
+    }
+
     void OnEnable() {
         serialPort = new SerialPort(portName, baudRate);
 
@@ -34,6 +50,25 @@ public class ArduinoLink : MonoBehaviour {
             // 6 : joy button
             // 7 : joyX
             // 8 : joyY
+
+
+            if (trimedData.Length >= 9) {
+                button1 = trimedData[0] == "1";
+                button2 = trimedData[1] == "1";
+                button3 = trimedData[2] == "1";
+                gyroX = float.Parse(trimedData[3]);
+                gyroY = float.Parse(trimedData[4]);
+                gyroZ = float.Parse(trimedData[5]);
+                joyButton = trimedData[6] == "1";
+                joyX = float.Parse(trimedData[7]);
+                joyY = float.Parse(trimedData[8]);
+            }
+        }
+    }
+
+    private void OnApplicationQuit() {
+        if (serialPort != null && serialPort.IsOpen) {
+            serialPort.Close();
         }
     }
 }

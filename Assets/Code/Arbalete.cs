@@ -32,10 +32,6 @@ public class Arbalete : MonoBehaviour
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     Fire();
-        // }
         if(Input.GetKeyDown(KeyCode.JoystickButton0)){
             Fire();
         }
