@@ -12,7 +12,7 @@ public class ArduinoLink : MonoBehaviour {
 
     public float gyroX, gyroY, gyroZ;
     public float joyX, joyY;
-    public bool button1, button2, button3, joyButton;
+    public bool button1, button2, button3, joyButton, isLoaded, isAiming, shootTrigger;
 
 
     void Awake() {
@@ -41,15 +41,18 @@ public class ArduinoLink : MonoBehaviour {
         if(serialPort != null && serialPort.IsOpen && serialPort.BytesToRead > 0) {
             string data = serialPort.ReadLine();
             string[] trimedData = data.Split(' ');
-            // 0 : button1
+            // 0 : button1 visé
             // 1 : button2
-            // 2 : button3
+            // 2 : button3 fire
             // 3 : gyroX
             // 4 : gyroY
             // 5 : gyroZ
             // 6 : joy button
             // 7 : joyX
             // 8 : joyY
+            // 9 : is loaded
+            // 10 : is aiming
+            // 11 : shoot trigger
 
 
             if (trimedData.Length >= 9) {
@@ -62,6 +65,9 @@ public class ArduinoLink : MonoBehaviour {
                 joyButton = trimedData[6] == "1";
                 joyX = float.Parse(trimedData[7]);
                 joyY = float.Parse(trimedData[8]);
+                isLoaded = trimedData[9] == "1";
+                isAiming = trimedData[10] == "1";
+                shootTrigger = trimedData[11] == "1";
             }
         }
     }

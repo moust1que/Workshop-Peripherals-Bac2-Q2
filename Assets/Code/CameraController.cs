@@ -62,19 +62,24 @@ public class CameraController : MonoBehaviour
         UIContoller uiContoller = UnityEngine.Object.FindFirstObjectByType<UIContoller>();
         uiContoller.UpdateScoreUI();
         WindManager wind = UnityEngine.Object.FindFirstObjectByType<WindManager>();
-        if (wind != null)
-        {
+        if (wind != null){
             Debug.Log("CameraController : WindManager trouvé, direction = " + wind.GetCurrentWindDirection());
             uiContoller.UpdateWindUI(wind.GetCurrentWindDirection(), wind.GetCurrentWindStrength());
         }
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton2) && isAiming)
-        {
+        if (Input.GetKeyDown(KeyCode.JoystickButton2) && isAiming){
             AimMode();
         }
 
-        if (ArduinoLink.instance != null)
-        {
+        if(ArduinoLink.instance.isAiming){
+            AimMode();
+        }
+
+        if(!ArduinoLink.instance.isAiming){
+            ExitAimMode();
+        }
+
+        if (ArduinoLink.instance != null){
             float gyroX = ArduinoLink.instance.gyroX;
             float gyroY = ArduinoLink.instance.gyroY;
             float gyroZ = ArduinoLink.instance.gyroZ;
@@ -87,7 +92,6 @@ public class CameraController : MonoBehaviour
 
             transform.localRotation = Quaternion.Euler(-gyroY, -gyroZ, 0.0f);
         }
-
     }
 
     IEnumerator LerpFOV(float startFOV, float endFOV, float duration)

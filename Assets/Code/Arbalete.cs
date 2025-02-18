@@ -39,6 +39,10 @@ public class Arbalete : MonoBehaviour
             reloadCheck = 100;
         }
 
+        if(ArduinoLink.instance.button3){
+            Fire();
+        }
+
         Reload();
     }
 
@@ -64,7 +68,7 @@ public class Arbalete : MonoBehaviour
 
     void Reload(){
         if(canFire == false){
-            if(reloadCheck == 100){
+            if(ArduinoLink.instance.isLoaded){
                 canFire = true;
             }
         }
