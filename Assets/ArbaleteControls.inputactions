@@ -47,6 +47,17 @@
                 },
                 {
                     "name": "",
+                    "id": "f3c6aab5-215e-47ab-8cc2-e03c75f147d1",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "inputFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2d827b5d-0681-49c7-8e3f-3cff339a415d",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
@@ -60,6 +71,17 @@
                     "name": "",
                     "id": "af718e6e-73d9-442a-910b-649d3bbae1b5",
                     "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "inputZoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e78f5427-8074-417e-b6c1-9ec9643760d5",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

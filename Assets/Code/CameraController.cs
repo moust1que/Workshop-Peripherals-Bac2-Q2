@@ -20,14 +20,6 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        if (SystemInfo.supportsGyroscope)
-        {
-            Input.gyro.enabled = true;
-        }
-        else
-        {
-            Debug.LogWarning("Aucun gyroscope supporté sur cet appareil.");
-        }
         mainCamera.fieldOfView = normalFOV;
         score = 0;
     }
@@ -80,10 +72,18 @@ public class CameraController : MonoBehaviour
             AimMode();
         }
 
-        x += Input.gyro.rotationRateUnbiased.y * sensitivity;
-        y += Input.gyro.rotationRateUnbiased.x * sensitivity;
-        y = Mathf.Clamp(y, -80f, 80f);
-        transform.localRotation = Quaternion.Euler(y, x, 0);
+        if (ArduinoLink.instance != null)
+        {
+            float gyroX = ArduinoLink.instance.gyroX;
+            float gyroY = ArduinoLink.instance.gyroY;
+
+            x += gyroY * sensitivity * Time.deltaTime;
+            y += gyroX * sensitivity * Time.deltaTime;
+            y = Mathf.Clamp(y, -80f, 80f);
+
+            transform.localRotation = Quaternion.Euler(y, x, 0);
+        }
+
     }
 
     IEnumerator LerpFOV(float startFOV, float endFOV, float duration)
