@@ -31,23 +31,37 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bleu")){
-            addScore(6);
-        }else if (collision.gameObject.CompareTag("Rouge")){
-            addScore(8);
-        }else if (collision.gameObject.CompareTag("Jaune")){
-            addScore(10);
-        }else if (collision.gameObject.CompareTag("Noir")){
-            addScore(2);
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Stopper")) 
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;  
+            // rb.linearVelocity = Vector3.zero;
+            // rb.angularVelocity = Vector3.zero;
         }
-        
-        Destroy(gameObject, 0.5f);
+    }
     }
 
-    void addScore(int points)
-    {
-        CameraController cameraController = Object.FindFirstObjectByType<CameraController>();
-        cameraController.score += points;
-        Debug.Log("Score actuel : " + cameraController.score);
-    }
+    // void OnCollisionEnter(Collision collision)
+    // {
+    //     if (collision.gameObject.CompareTag("Bleu")){
+    //         addScore(6);
+    //     }else if (collision.gameObject.CompareTag("Rouge")){
+    //         addScore(8);
+    //     }else if (collision.gameObject.CompareTag("Jaune")){
+    //         addScore(10);
+    //     }else if (collision.gameObject.CompareTag("Noir")){
+    //         addScore(2);
+    //     }
+        
+    //     Destroy(gameObject, 0.5f);
+    // }
+
+    // void addScore(int points)
+    // {
+    //     CameraController cameraController = Object.FindFirstObjectByType<CameraController>();
+    //     cameraController.score += points;
+    //     Debug.Log("Score actuel : " + cameraController.score);
+    // }>
 }
