@@ -544,6 +544,7 @@ MonoBehaviour:
   normalFOV: 60
   aimFOV: 30
   transitionDuration: 0.1
+  inputZoom: {fileID: -5921709007299145909, guid: 3073d792657c1be4a9eddedae5037207, type: 3}
   score: 0
 --- !u!1 &1260709098 stripped
 GameObject:

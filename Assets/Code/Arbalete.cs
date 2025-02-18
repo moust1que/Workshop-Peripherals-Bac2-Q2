@@ -6,61 +6,71 @@ public class Arbalete : MonoBehaviour
     public GameObject projectile;          
     public Transform spawnPoint;             
     public InputActionReference inputFire; 
-    // public InputActionReference inputZoom;
-
     public CameraController cameraController;
 
-    // private void OnEnable()
-    // {
-    //     inputFire.action.started += OnFireStarted;
-    //     inputFire.action.Enable();
-    //     inputZoom.action.performed += OnZoomPerformed;
-    //     inputZoom.action.Enable();
-    // }
+    public int reloadCheck = 100;
+    public bool canFire;
 
-    // private void OnDisable()
-    // {
-    //     inputFire.action.started -= OnFireStarted;
-    //     inputFire.action.Disable();
-    //     inputZoom.action.performed -= OnZoomPerformed;
-    //     inputZoom.action.Disable();
-    // }
+    void Start(){
+        canFire = true;
+    }
 
-    private void OnFireStarted(InputAction.CallbackContext context)
-    {
+    private void OnEnable(){
+        inputFire.action.started += OnFireStarted;
+        inputFire.action.Enable();
+    }
+
+    private void OnDisable(){
+        inputFire.action.started -= OnFireStarted;
+        inputFire.action.Disable();
+    }
+
+
+    private void OnFireStarted(InputAction.CallbackContext context){
         Fire();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Fire();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Fire();
+        // }
         if(Input.GetKeyDown(KeyCode.JoystickButton0)){
             Fire();
         }
+        if(Input.GetKeyDown(KeyCode.O)){
+            reloadCheck = 100;
+        }
 
-        // if (Input.GetAxis("RightTrigger") > 0.1f)
-        // {
-        //     Debug.Log("RT Pressed");
-        //     Fire();
-        // }
+        Reload();
     }
 
     void Fire()
     {
-        GameObject newProjectile = Instantiate(
-            projectile, 
-            spawnPoint.position, 
-            spawnPoint.rotation
-        );
-        Projectile projScript = newProjectile.GetComponent<Projectile>();
+        if(canFire){
+            GameObject newProjectile = Instantiate(
+                projectile, 
+                spawnPoint.position, 
+                spawnPoint.rotation
+            );
+            Projectile projScript = newProjectile.GetComponent<Projectile>();
 
-        if (projScript != null)
-        {
-            projScript.InitialiserDirection(spawnPoint.forward);
+            if (projScript != null){
+                projScript.InitialiserDirection(spawnPoint.forward);
+            }
+            cameraController.ExitAimMode();
+            canFire = false;
+            reloadCheck = 0;
         }
-        cameraController.ExitAimMode();
+    }
+
+
+    void Reload(){
+        if(canFire == false){
+            if(reloadCheck == 100){
+                canFire = true;
+            }
+        }
     }
 }

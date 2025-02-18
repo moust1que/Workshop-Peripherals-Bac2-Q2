@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     public float transitionDuration = 0.1f; 
 
     private bool isAiming = false;
-
+    public InputActionReference inputZoom;
 
     public int score;
 
@@ -32,20 +32,52 @@ public class CameraController : MonoBehaviour
         score = 0;
     }
 
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !isAiming)
+        inputZoom.action.started += OnZoomStarted;
+        inputZoom.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputZoom.action.started -= OnZoomStarted;
+        inputZoom.action.Disable();
+    }
+
+    private void OnZoomStarted(InputAction.CallbackContext context){
+        // isAiming = false;
+        // StopAllCoroutines();
+        // StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
+
+        if (!isAiming)
         {
             isAiming = true;
             StopAllCoroutines();
             StartCoroutine(LerpFOV(mainCamera.fieldOfView, aimFOV, transitionDuration));
+            Debug.Log("Zoom started and aiming activated");
         }
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton2) && isAiming)
+        else
         {
             isAiming = false;
             StopAllCoroutines();
             StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
+            Debug.Log("Zoom stopped and aiming deactivated");
+        }
+    }
+
+
+    void Update()
+    {
+        // if (Input.GetKeyDown(KeyCode.Z) && !isAiming)
+        // {
+        //     isAiming = false;
+        //     StopAllCoroutines();
+        //     StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
+        // }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton2) && isAiming)
+        {
+            AimMode();
         }
 
         x += Input.gyro.rotationRateUnbiased.y * sensitivity;
@@ -64,6 +96,12 @@ public class CameraController : MonoBehaviour
             yield return null;
         }
         mainCamera.fieldOfView = endFOV;
+    }
+
+    public void AimMode(){
+        isAiming = false;
+        StopAllCoroutines();
+        StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
     }
     
     public void ExitAimMode()
