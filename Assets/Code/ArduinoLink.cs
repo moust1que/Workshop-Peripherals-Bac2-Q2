@@ -24,8 +24,16 @@ public class ArduinoLink : MonoBehaviour {
     void Update() {
         if(serialPort != null && serialPort.IsOpen && serialPort.BytesToRead > 0) {
             string data = serialPort.ReadLine();
-
-            Debug.Log(data);
+            string[] trimedData = data.Split(' ');
+            // 0 : button1
+            // 1 : button2
+            // 2 : button3
+            // 3 : gyroX
+            // 4 : gyroY
+            // 5 : gyroZ
+            // 6 : joy button
+            // 7 : joyX
+            // 8 : joyY
         }
     }
 }
