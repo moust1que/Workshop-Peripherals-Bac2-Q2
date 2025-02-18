@@ -39,9 +39,6 @@ public class CameraController : MonoBehaviour
     }
 
     private void OnZoomStarted(InputAction.CallbackContext context){
-        // isAiming = false;
-        // StopAllCoroutines();
-        // StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
 
         if (!isAiming)
         {
@@ -62,12 +59,14 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Z) && !isAiming)
-        // {
-        //     isAiming = false;
-        //     StopAllCoroutines();
-        //     StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
-        // }
+        UIContoller uiContoller = UnityEngine.Object.FindFirstObjectByType<UIContoller>();
+        uiContoller.UpdateScoreUI();
+        WindManager wind = UnityEngine.Object.FindFirstObjectByType<WindManager>();
+        if (wind != null)
+        {
+            Debug.Log("CameraController : WindManager trouvé, direction = " + wind.GetCurrentWindDirection());
+            uiContoller.UpdateWindUI(wind.GetCurrentWindDirection(), wind.GetCurrentWindStrength());
+        }
 
         if (Input.GetKeyDown(KeyCode.JoystickButton2) && isAiming)
         {

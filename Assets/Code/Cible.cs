@@ -7,7 +7,7 @@ public class Cible : MonoBehaviour
 {
     public Transform targetCenter; 
     public float maxScore = 10f;  
-    public float maxDistance = 3f; 
+    public float maxDistance = 3f;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -21,7 +21,8 @@ public class Cible : MonoBehaviour
             if (cameraController != null){
                 cameraController.score += Mathf.RoundToInt(score);
                 Debug.Log("Score : " + cameraController.score);
-                // cameraController.UpdateScoreUI();
+                UIContoller uiContoller = UnityEngine.Object.FindFirstObjectByType<UIContoller>();
+                uiContoller.UpdateScoreUI();
             }
         }
     }
@@ -32,6 +33,13 @@ public class Cible : MonoBehaviour
         float randomZ = Mathf.Clamp(UnityEngine.Random.Range(0,20), 0f, 10f);
         Vector3 newPosition = new Vector3(randomX,1.5f,randomZ);
         transform.position = newPosition;
+
+
+        WindManager windManager = UnityEngine.Object.FindFirstObjectByType<WindManager>();
+        if (windManager != null)
+        {
+            windManager.SetRandomWind();
+        }
 
     }
 }
