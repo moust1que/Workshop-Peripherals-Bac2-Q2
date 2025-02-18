@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
             StartCoroutine(LerpFOV(mainCamera.fieldOfView, aimFOV, transitionDuration));
         }
 
-        if (Input.GetMouseButtonDown(0) && isAiming)
+        if (Input.GetKeyDown(KeyCode.JoystickButton2) && isAiming)
         {
             isAiming = false;
             StopAllCoroutines();

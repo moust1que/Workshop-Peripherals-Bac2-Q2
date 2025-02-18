@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+using UnityEngine.UIElements;
+
 
 public class Cible : MonoBehaviour
 {
@@ -14,12 +17,21 @@ public class Cible : MonoBehaviour
             float distance = Vector3.Distance(hitPoint, targetCenter.position); 
 
             float score = Mathf.Max(0, maxScore - (distance / maxDistance) * maxScore); 
-            CameraController cameraController = Object.FindFirstObjectByType<CameraController>();
+            CameraController cameraController = UnityEngine.Object.FindFirstObjectByType<CameraController>();
             if (cameraController != null)
             {
                 cameraController.score += Mathf.RoundToInt(score);
                 Debug.Log("Score : " + cameraController.score);
             }
         }
+    }
+
+    public void ChangePosition()
+    {
+        float randomX = Mathf.Clamp(UnityEngine.Random.Range(-4,4), -3f, 3f);
+        float randomZ = Mathf.Clamp(UnityEngine.Random.Range(0,20), 0f, 10f);
+        Vector3 newPosition = new Vector3(randomX,1.5f,randomZ);
+        transform.position = newPosition;
+
     }
 }

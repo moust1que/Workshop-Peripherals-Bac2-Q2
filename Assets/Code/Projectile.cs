@@ -1,9 +1,11 @@
 using UnityEngine;
+using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
     public float speed = 20f;       
     public float lifeTime = 5f;     
+
 
     private Rigidbody rb;
     
@@ -32,15 +34,25 @@ public class Projectile : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Stopper")) 
-    {
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null)
         {
-            rb.isKinematic = true;  
-            // rb.linearVelocity = Vector3.zero;
-            // rb.angularVelocity = Vector3.zero;
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+                StartCoroutine(WaitAndChangePosition());
+            }
         }
+
     }
+
+    IEnumerator WaitAndChangePosition()
+    {
+        yield return new WaitForSeconds(2f); // Attend 2 secondes
+        Cible cibleRef = UnityEngine.Object.FindFirstObjectByType<Cible>();
+        if (cibleRef != null)
+        {
+            cibleRef.ChangePosition();
+        }
     }
 
     // void OnCollisionEnter(Collision collision)

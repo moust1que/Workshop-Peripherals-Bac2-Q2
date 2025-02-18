@@ -6,6 +6,7 @@ public class Arbalete : MonoBehaviour
     public GameObject projectile;          
     public Transform spawnPoint;             
     public InputActionReference inputFire; 
+    public InputActionReference inputZoom;
 
     public CameraController cameraController;
 
@@ -13,12 +14,16 @@ public class Arbalete : MonoBehaviour
     {
         inputFire.action.started += OnFireStarted;
         inputFire.action.Enable();
+        inputZoom.action.performed += OnZoomPerformed;
+        inputZoom.action.Enable();
     }
 
     private void OnDisable()
     {
         inputFire.action.started -= OnFireStarted;
         inputFire.action.Disable();
+        inputZoom.action.performed -= OnZoomPerformed;
+        inputZoom.action.Disable();
     }
 
     private void OnFireStarted(InputAction.CallbackContext context)
@@ -33,6 +38,12 @@ public class Arbalete : MonoBehaviour
             Fire();
         }
         if(Input.GetKeyDown(KeyCode.JoystickButton0)){
+            Fire();
+        }
+
+        if (Input.GetAxis("RightTrigger") > 0.1f)
+        {
+            Debug.Log("RT Pressed");
             Fire();
         }
     }
