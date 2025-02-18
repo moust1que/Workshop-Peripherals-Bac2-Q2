@@ -7,7 +7,7 @@ using TMPro;
 public class CameraController : MonoBehaviour
 {
     public float sensitivity = 10f;
-    float x, y;
+    float x, y, z;
 
     public Camera mainCamera;
     public float normalFOV = 60f; 
@@ -77,12 +77,15 @@ public class CameraController : MonoBehaviour
         {
             float gyroX = ArduinoLink.instance.gyroX;
             float gyroY = ArduinoLink.instance.gyroY;
+            float gyroZ = ArduinoLink.instance.gyroZ;
 
-            x += gyroY * sensitivity * Time.deltaTime;
-            y += gyroX * sensitivity * Time.deltaTime;
-            y = Mathf.Clamp(y, -80f, 80f);
+            // x -= gyroX * sensitivity * Time.deltaTime;
+            // x = Mathf.Clamp(x, -80f, 80f);
+            // y -= gyroZ * sensitivity * Time.deltaTime;
+            // y = Mathf.Clamp(y, -80f, 80f);
+            // z -= gyroY * sensitivity * Time.deltaTime;
 
-            transform.localRotation = Quaternion.Euler(y, x, 0);
+            transform.localRotation = Quaternion.Euler(-gyroY, -gyroZ, 0.0f);
         }
 
     }

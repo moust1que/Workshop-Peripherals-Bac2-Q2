@@ -548,7 +548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8061ad88ecbbf14fbe34aefeee31fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 10
+  sensitivity: 1
   mainCamera: {fileID: 1031110778}
   normalFOV: 60
   aimFOV: 30
