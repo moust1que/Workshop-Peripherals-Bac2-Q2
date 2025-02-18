@@ -18,10 +18,10 @@ public class Cible : MonoBehaviour
 
             float score = Mathf.Max(0, maxScore - (distance / maxDistance) * maxScore); 
             CameraController cameraController = UnityEngine.Object.FindFirstObjectByType<CameraController>();
-            if (cameraController != null)
-            {
+            if (cameraController != null){
                 cameraController.score += Mathf.RoundToInt(score);
                 Debug.Log("Score : " + cameraController.score);
+                // cameraController.UpdateScoreUI();
             }
         }
     }

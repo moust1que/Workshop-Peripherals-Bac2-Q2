@@ -42,6 +42,7 @@ public class Projectile : MonoBehaviour
             if (rb != null)
             {
                 rb.isKinematic = true;
+                Debug.Log("ChangePosition ");
                 StartCoroutine(WaitAndChangePosition());
             }
         }

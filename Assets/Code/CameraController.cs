@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using InputGyro = UnityEngine.InputSystem.Gyroscope;
 using System.Collections;
+using TMPro;
 
 public class CameraController : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class CameraController : MonoBehaviour
 
     private bool isAiming = false;
     public InputActionReference inputZoom;
-
+    
     public int score;
 
     void Start()
@@ -23,6 +24,7 @@ public class CameraController : MonoBehaviour
         mainCamera.fieldOfView = normalFOV;
         score = 0;
     }
+
 
     private void OnEnable()
     {
