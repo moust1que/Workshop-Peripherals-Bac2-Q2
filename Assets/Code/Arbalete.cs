@@ -10,67 +10,70 @@ public class Arbalete : MonoBehaviour
 
     public int reloadCheck = 100;
     public bool canFire;
+    public bool hasShooted = false;
 
     void Start(){
-        canFire = true;
+        canFire = false;
     }
 
-    private void OnEnable(){
-        inputFire.action.started += OnFireStarted;
-        inputFire.action.Enable();
-    }
+    // private void OnEnable(){
+    //     inputFire.action.started += OnFireStarted;
+    //     inputFire.action.Enable();
+    // }
 
-    private void OnDisable(){
-        inputFire.action.started -= OnFireStarted;
-        inputFire.action.Disable();
-    }
+    // private void OnDisable(){
+    //     inputFire.action.started -= OnFireStarted;
+    //     inputFire.action.Disable();
+    // }
 
 
-    private void OnFireStarted(InputAction.CallbackContext context){
-        Fire();
-    }
+    // private void OnFireStarted(InputAction.CallbackContext context){
+    //     Fire();
+    // }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.JoystickButton0)){
+        // if(Input.GetKeyDown(KeyCode.JoystickButton0)){
+        //     Fire();
+        // }
+        // if(Input.GetKeyDown(KeyCode.O)){
+        //     reloadCheck = 100;
+        // }
+
+        if(ArduinoLink.instance.button3 && !hasShooted && ArduinoLink.instance.isLoaded){
+            hasShooted = true;
             Fire();
         }
-        if(Input.GetKeyDown(KeyCode.O)){
-            reloadCheck = 100;
+
+        if(hasShooted && !ArduinoLink.instance.isLoaded) {
+            hasShooted = false;
         }
 
-        if(ArduinoLink.instance.button3){
-            Fire();
-        }
-
-        Reload();
+        // Reload();
     }
 
     void Fire()
     {
-        if(canFire){
-            GameObject newProjectile = Instantiate(
-                projectile, 
-                spawnPoint.position, 
-                spawnPoint.rotation
-            );
-            Projectile projScript = newProjectile.GetComponent<Projectile>();
+        GameObject newProjectile = Instantiate(
+            projectile, 
+            spawnPoint.position, 
+            spawnPoint.rotation
+        );
+        Projectile projScript = newProjectile.GetComponent<Projectile>();
 
-            if (projScript != null){
-                projScript.InitialiserDirection(spawnPoint.forward);
-            }
-            cameraController.ExitAimMode();
-            canFire = false;
-            reloadCheck = 0;
+        if (projScript != null){
+            projScript.InitialiserDirection(spawnPoint.forward);
         }
+        cameraController.ExitAimMode();
+        // hasShooted = false;
     }
 
 
-    void Reload(){
-        if(canFire == false){
-            if(ArduinoLink.instance.isLoaded){
-                canFire = true;
-            }
-        }
-    }
+    // void Reload(){
+    //     if(canFire == false){
+    //         if(ArduinoLink.instance.isLoaded){
+    //             canFire = true;
+    //         }
+    //     }
+    // }
 }

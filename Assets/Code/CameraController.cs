@@ -7,7 +7,6 @@ using TMPro;
 public class CameraController : MonoBehaviour
 {
     public float sensitivity = 10f;
-    float x, y, z;
 
     public Camera mainCamera;
     public float normalFOV = 60f; 
@@ -26,37 +25,38 @@ public class CameraController : MonoBehaviour
     }
 
 
-    private void OnEnable()
-    {
-        inputZoom.action.started += OnZoomStarted;
-        inputZoom.action.Enable();
-    }
+    // private void OnEnable()
+    // {
+    //     inputZoom.action.started += OnZoomStarted;
+    //     inputZoom.action.Enable();
+    // }
 
-    private void OnDisable()
-    {
-        inputZoom.action.started -= OnZoomStarted;
-        inputZoom.action.Disable();
-    }
+    // private void OnDisable()
+    // {
+    //     inputZoom.action.started -= OnZoomStarted;
+    //     inputZoom.action.Disable();
+    // }
 
-    private void OnZoomStarted(InputAction.CallbackContext context){
-
-        if (!isAiming)
-        {
-            isAiming = true;
-            ArduinoLink.instance.isAiming = true;
-            StopAllCoroutines();
-            StartCoroutine(LerpFOV(mainCamera.fieldOfView, aimFOV, transitionDuration));
-            Debug.Log("Zoom started and aiming activated");
-        }
-        else
-        {
-            isAiming = false;
-            ArduinoLink.instance.isAiming = false;
-            StopAllCoroutines();
-            StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
-            Debug.Log("Zoom stopped and aiming deactivated");
-        }
-    }
+    // private void OnZoomStarted(InputAction.CallbackContext context){
+    //     if (!isAiming)
+    //     {
+    //         isAiming = true;
+    //         ArduinoLink.instance.isAiming = true;
+    //         // StopAllCoroutines();
+    //         // StartCoroutine(LerpFOV(mainCamera.fieldOfView, aimFOV, transitionDuration));
+    //         AimMode();
+    //         Debug.Log("Zoom started and aiming activated");
+    //     }
+    //     else
+    //     {
+    //         isAiming = false;
+    //         ArduinoLink.instance.isAiming = false;
+    //         // StopAllCoroutines();
+    //         // StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
+    //         ExitAimMode();
+    //         Debug.Log("Zoom stopped and aiming deactivated");
+    //     }
+    // }
 
 
     void Update()
@@ -73,14 +73,13 @@ public class CameraController : MonoBehaviour
             AimMode();
         }
 
-        if(ArduinoLink.instance.isAiming){
+        if(ArduinoLink.instance.isAiming && !isAiming){
             AimMode();
         }
 
-        // if(ArduinoLink.instance.isAiming == false){
-        //     Debug.Log("isAiming = false");
-        //     ExitAimMode();
-        // }
+        if(ArduinoLink.instance.isAiming == false && isAiming){
+            ExitAimMode();
+        }
 
         // if(Input.GetKeyDown(KeyCode.U)){
         //     ExitAimMode();
@@ -114,9 +113,11 @@ public class CameraController : MonoBehaviour
     }
 
     public void AimMode(){
-        // isAiming = false;
+        Debug.Log("AimMode");
         StopAllCoroutines();
-        StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
+        StartCoroutine(LerpFOV(mainCamera.fieldOfView, aimFOV, transitionDuration));
+        isAiming = true;
+        ArduinoLink.instance.isAiming = true;
     }
     
     public void ExitAimMode()
@@ -124,6 +125,7 @@ public class CameraController : MonoBehaviour
         Debug.Log("ExitAimMode");
         StopAllCoroutines();
         StartCoroutine(LerpFOV(mainCamera.fieldOfView, normalFOV, transitionDuration));
-        // isAiming = false;
+        isAiming = false;
+        ArduinoLink.instance.isAiming = false;
     }
 }

@@ -2051,7 +2051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8061ad88ecbbf14fbe34aefeee31fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 10
+  sensitivity: 1
   mainCamera: {fileID: 330585545}
   normalFOV: 60
   aimFOV: 30
@@ -14149,6 +14149,7 @@ MonoBehaviour:
   cameraController: {fileID: 330585548}
   reloadCheck: 100
   canFire: 0
+  hasShooted: 0
 --- !u!43 &1546872305
 Mesh:
   m_ObjectHideFlags: 0
