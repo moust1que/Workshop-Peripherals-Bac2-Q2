@@ -4,7 +4,7 @@ using System.Collections;
 public class Projectile : MonoBehaviour
 {
     public float speed = 20f;       
-    public float lifeTime = 2.5f;
+    public float lifeTime = 10.5f;
 
     private Rigidbody rb;
     

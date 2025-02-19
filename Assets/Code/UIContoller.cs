@@ -16,6 +16,7 @@ public class UIContoller : MonoBehaviour
     public void UpdateWindUI(Vector3 windDirection, float windStrength)
     {
         Debug.Log("UpdateWindUI appelée : Direction = " + windDirection + ", Force = " + windStrength);
+        windStrength = windStrength / 8;
         windText.text = windStrength.ToString("F0");
 
         // Calcul de l'angle pour aligner la flèche avec la direction du vent.

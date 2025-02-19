@@ -29,8 +29,8 @@ public class Cible : MonoBehaviour
 
     public void ChangePosition()
     {
-        float randomX = Mathf.Clamp(UnityEngine.Random.Range(-4,4), -3f, 3f);
-        float randomZ = Mathf.Clamp(UnityEngine.Random.Range(0,20), 0f, 10f);
+        float randomX = Mathf.Clamp(UnityEngine.Random.Range(-4,15), -3f, 10f);
+        float randomZ = Mathf.Clamp(UnityEngine.Random.Range(0,15), 0f, 10f);
         Vector3 newPosition = new Vector3(randomX,1.5f,randomZ);
         transform.position = newPosition;
 

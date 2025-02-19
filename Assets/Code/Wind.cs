@@ -28,7 +28,7 @@ public class WindManager : MonoBehaviour
         WindDirection selectedWind = directions[UnityEngine.Random.Range(0, directions.Length)];
 
         currentWindDirection = GetWindVector(selectedWind);
-        windStrength = UnityEngine.Random.Range(100f, 150f); 
+        windStrength = UnityEngine.Random.Range(0f, 80f); 
 
         UIContoller uiController = UnityEngine.Object.FindFirstObjectByType<UIContoller>();
         if (uiController != null)
